@@ -1,0 +1,35 @@
+version: '3'
+services:
+    reids:
+        image: redis:4.0.1
+        ports:
+          - "6379:6379"
+        restart: unless-stopped
+    php:
+        image: twodogegg/php:7.1-fpm
+        volumes:
+            - ./wwwroot:/var/www/html
+            - ./php/config/php.ini:/usr/local/etc/php/php.ini
+        stdin_open: true
+        tty: true
+        links: 
+            - mysql            
+    mysql:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+    nginx:
+        image: nginx
+        restart: unless-stopped
+        # restart: always
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./nginx/html:/usr/share/nginx/html
+            - ./wwwroot:/var/www/html
+            - ./nginx/log:/var/log/nginx
+        ports:
+            - "80:80"
+            - "8080:8080"
