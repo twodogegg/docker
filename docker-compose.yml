@@ -1,14 +1,14 @@
 version: '3'
 services:
-    reids:
-        image: redis:4.0.1
-        ports:
-          - "6379:6379"
-        restart: unless-stopped
+    # reids:
+    #     image: redis:4.0.1
+    #     ports:
+    #       - "6379:6379"
+    #     restart: unless-stopped
     php:
         image: twodogegg/php:7.1-fpm
         volumes:
-            - ./wwwroot:/var/www/html
+            - ./wwwroot:/var/www/html:cached
             - ./php/config/php.ini:/usr/local/etc/php/php.ini
         stdin_open: true
         tty: true
