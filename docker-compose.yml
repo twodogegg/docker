@@ -6,7 +6,7 @@ services:
     #       - "6379:6379"
     #     restart: unless-stopped
     php:
-        image: twodogegg/php:7.1-fpm
+        image: twodogegg/php:1.0.2
         volumes:
             - ./wwwroot:/var/www/html:cached
             - ./php/config/php.ini:/usr/local/etc/php/php.ini
